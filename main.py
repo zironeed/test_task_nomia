@@ -15,7 +15,7 @@ def validate(banknotes=None, amount=None):
 
         return banknotes
 
-    if amount and amount < 0 or (amount > maximum):
+    if amount < 1 or (amount >= maximum):
         raise Exception('Error: Amount must be at least 1')
 
     return amount
@@ -32,6 +32,7 @@ class ATM(object):
         :rtype: None
         """
         banknotesCount = validate(banknotes=banknotesCount)
+
         for i, banknote in enumerate(self.cash):
             self.cash[banknote] += banknotesCount[i]
 
@@ -63,8 +64,8 @@ class ATM(object):
 
 if __name__ == '__main__':
     atm = ATM()
-    atm.deposit([0,0,1,2,1])
-    print(atm.withdraw(600)) # [0,0,1,0,1]
-    atm.deposit([0,1,0,1,1])
-    print(atm.withdraw(600)) # [-1]
-    print(atm.withdraw(550)) # [0,1,0,0,1]
+    atm.deposit([0, 0, 1, 2, 1])
+    print(atm.withdraw(600))
+    atm.deposit([0, 1, 0, 1, 1])
+    print(atm.withdraw(600))
+    print(atm.withdraw(550))
